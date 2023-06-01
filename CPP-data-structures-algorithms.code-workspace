@@ -1,12 +1,1 @@
-{
-	"folders": [
-		{
-			"path": "CPP-data-structures-algorithms"
-		}
-	],
-	"settings": {
-		"files.associations": {
-			"string": "cpp"
-		}
-	}
-}
+// wrong

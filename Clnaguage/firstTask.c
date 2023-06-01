@@ -46,8 +46,44 @@ int main()
         printf("---------------------------------\n");
     }
 
+    FILE *file;
+    file = fopen("players.bin", "wb");
+    if (file == NULL)
+    {
+        printf("Unable to create or open the file.\n");
+        return 1;
+    }
+    fwrite(Player, sizeof(struct TennisPlayer), num_players, file);
+    fclose(file);
+
+    printf("=========================================\n");
+
+    file = fopen("players.bin", "rb");
+
+    if (file == NULL)
+    {
+        printf("Unable to open the file.\n");
+        return 1;
+    }
+    struct TennisPlayer *readPlayer = malloc(num_players * sizeof(struct TennisPlayer));
+
+    fread(readPlayer, sizeof(struct TennisPlayer), num_players, file);
+
+    for (int i = 0; i < num_players; i++)
+    {
+        printf("---------------------------------\n");
+        printf("Informations of the %dst User: \n", i + 1);
+
+        printf("Users name: %s %s\n", readPlayer[i].first_name, readPlayer[i].last_name);
+        printf("User's age: %d  \n", readPlayer[i].age);
+        printf("User's price_money: %d  \n", readPlayer[i].price_money);
+        printf("---------------------------------\n");
+    }
+
     printf("Average of the user's price money: %lf\n", avg_price(Player, num_players));
     free(Player);
+    free(readPlayer);
+    fclose(file);
     return 0;
 }
 
